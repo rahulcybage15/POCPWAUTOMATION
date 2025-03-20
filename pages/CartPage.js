@@ -1,5 +1,6 @@
 // @ts-check
 import { expect } from "@playwright/test";
+import { UploadComponent } from "./Components/uploadComponent";
 const path = require('path');
 
 export class CartPage {
@@ -15,6 +16,10 @@ export class CartPage {
         this.fileupload1 = page.locator('input#upfile_1');
         this.clickUploadBtn = page.locator('input#upload_1');
         this.successMessage =  page.locator('.file_messageblock_fileheader label');
+    }
+
+    UploadingFileComponent(){
+        return new UploadComponent(this.page);
     }
 
 
