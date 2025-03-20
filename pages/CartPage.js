@@ -18,6 +18,10 @@ export class CartPage {
         this.successMessage =  page.locator('.file_messageblock_fileheader label');
     }
 
+    async goToCartPage(){
+        await this.page.goto('/cart');
+    }
+
     UploadingFileComponent(){
         return new UploadComponent(this.page);
     }

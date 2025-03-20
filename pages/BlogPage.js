@@ -15,9 +15,13 @@ export class BlogPage {
 
     }
 
-    verifyPageTitle(){
+    async NavigateToBlogPage(){
+        await this.page.goto('/blog/');
+    }
 
-        expect(this.page).toHaveTitle('Blog – Practice E-Commerce Site');
+    async verifyPageTitle(){
+
+       await expect(this.page).toHaveTitle('Blog – Practice E-Commerce Site');
     }
 
     async blogCount(){
