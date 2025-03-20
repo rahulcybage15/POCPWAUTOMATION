@@ -21,6 +21,15 @@ test.describe('test cases for upload files', () => {
         await cartPage.verifyUploadSuccessMessage();
         
     })
+
+    test('uploading using component', async ({ page }) => {
+        const filepath = path.join(__dirname,'../data/Image_1.png');
+        cartPage = new CartPage(page);
+        await page.goto('https://practice.sdetunicorns.com/cart/');
+        await cartPage.UploadingFileComponent().uploadFile(filepath);
+        await cartPage.verifyUploadSuccessMessage();
+    })
+    
     
     
 })
