@@ -20,7 +20,7 @@ export class HomePage {
     }
 
     async navigateToHomePage(){
-        await this.page.goto('');
+        await this.page.goto('https://practice.sdetunicorns.com');
     }
 
     async navigateTotAccountPage(){

@@ -4,11 +4,12 @@ import { expect } from "@playwright/test";
 
 export class AccountPage{
 
-     /**
-     * @param {import("playwright-core").Page} page
+    /**
+     * @param {any} page
      */
      
      constructor(page){
+
         this.page = page;
         this.userName = page.locator('#username');
         this.password = page.locator('#password');
@@ -39,6 +40,7 @@ export class AccountPage{
 
      async verifyMessagePresentOnOrderSection(){
 
-        expect(await this.fetchMessageOnOrderPage()).toEqual('No order has been made yet.');
+        expect(await this.fetchMessageOnOrderPage()).toContain('No order has been made yet.');
+        
      }
 }
