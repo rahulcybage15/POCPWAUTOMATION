@@ -23,6 +23,10 @@ export class HomePage {
         await this.page.goto('');
     }
 
+    async navigateTotAccountPage(){
+        await this.page.goto('/my-account');
+    }
+
     getNavLinksText(){
         return this.navLinks.allInnerTexts();
     }
