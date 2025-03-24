@@ -20,25 +20,19 @@ export class HomePage {
     }
 
     async navigateToHomePage(){
-        await this.page.goto('https://practice.sdetunicorns.com/');
+        await this.page.goto('https://practice.sdetunicorns.com');
     }
 
-
-    async goToContactPage(){
-        await this.contactLink.click();
-
-    }
-
-    async goToBlogPage(){
-        await this.blogLink.click();
+    async navigateTotAccountPage(){
+        await this.page.goto('/my-account');
     }
 
     getNavLinksText(){
         return this.navLinks.allInnerTexts();
     }
 
-    verifyHomePageTitle(){
-        expect(this.page).toHaveTitle('Practice E-Commerce Site – SDET Unicorns');
+   async verifyHomePageTitle(){
+        await expect(this.page).toHaveTitle('Practice E-Commerce Site – SDET Unicorns');
     }
 
     async clickOnGetStartedBtn(){

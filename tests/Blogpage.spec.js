@@ -8,15 +8,19 @@ test.describe('test cases for blog page', () => {
     let homePage;
     let blogPage;
 
-    test('count length', async ({ page }) => {
-
+    test.beforeEach(async ({ page }) => {
         homePage = new HomePage(page);
-        blogPage = new BlogPage(page);
         await homePage.navigateToHomePage();
-        homePage.verifyHomePageTitle();
-        homePage.goToBlogPage();
+    })
+    
+
+    test('count length', async ({ page }) => {
+                
+        blogPage = new BlogPage(page);
+        await homePage.verifyHomePageTitle();
+        await blogPage.NavigateToBlogPage();
         await page.waitForURL('https://practice.sdetunicorns.com/blog/');
-        blogPage.verifyPageTitle();
+       await blogPage.verifyPageTitle();
         await blogPage.verifyNumberOfBlogPresent();
         await blogPage.fetchTheNameOfLinks();
         

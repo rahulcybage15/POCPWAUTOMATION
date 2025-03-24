@@ -17,13 +17,23 @@ export class ContactPage {
         this.messageSuccess = page.getByRole('alert');
     }
 
+    async navigateToContactPage(){
+        await this.page.goto('/contact');
+    }
 
-    async fillTheForm(){
 
-        await this.nameInput.fill('Rahul');
-        await this.emailInput.fill('abc@test.com');
-        await this.phoneInput.fill('12345678');
-        await this.messageInput.fill('this is test message');
+    /**
+     * @param {string} name
+     * @param {string} email
+     * @param {string} phone
+     * @param {string} msg
+     */
+    async fillTheForm(name,email,phone,msg){
+
+        await this.nameInput.fill(name);
+        await this.emailInput.fill(email);
+        await this.phoneInput.fill(phone);
+        await this.messageInput.fill(msg);
         await this.submitBtn.click();
     }
 
