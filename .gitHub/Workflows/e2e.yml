@@ -8,10 +8,11 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v2
         with:
-          node-version: "14"
-      - name : Install dependencies
-        run : npm ci
-      - name: Install playwright
+          node-version: "18"
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright
         run: npx playwright install --with-deps
-      - name: running tests
-        run: npx playwright tests Accountpage.spec.js
+      - name: Running tests
+        run: npx playwright test Accountpage.spec.js
+
