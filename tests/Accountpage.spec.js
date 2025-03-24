@@ -2,7 +2,6 @@
 
 import {test,expect} from '@playwright/test';
 import { AccountPage } from '../pages/AccountPage';
-import { HomePage } from '../pages/HomePage';
 
 test.describe('test case for account page', () => {
     
@@ -17,7 +16,6 @@ test.describe('test case for account page', () => {
         await accountpage.verifyMessagePresentOnOrderSection();
         
     });
-
 })
 
 test.describe('with not logged in state', () => {
@@ -32,8 +30,4 @@ test.describe('with not logged in state', () => {
         await expect(accountpage.btnRegister).toBeVisible();
     })
     
-    
 })
-
-
-

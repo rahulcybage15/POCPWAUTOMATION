@@ -9,8 +9,10 @@
   "description": "",
   "devDependencies": {
     "@faker-js/faker": "^9.6.0",
-    "@playwright/test": "^1.50.1",
+    "@playwright/test": "^1.51.1",
     "@types/node": "^22.13.8",
+    "allure-commandline": "^2.33.0",
+    "allure-playwright": "^3.2.0",
     "eslint": "^9.22.0",
     "eslint-plugin-playwright": "^2.2.0"
   }
