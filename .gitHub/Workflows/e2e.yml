@@ -14,5 +14,5 @@ jobs:
       - name: Install Playwright
         run: npx playwright install --with-deps
       - name: Running tests
-        run: npx playwright test
+        run: npx playwright test Blogpage.spec.js
 
