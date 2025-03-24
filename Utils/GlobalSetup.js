@@ -17,6 +17,8 @@ async function globalSetup(FullConfig) {
     //await homepage.navigateToHomePage();
     //await homepage.navigateTotAccountPage();
     await page.goto('https://practice.sdetunicorns.com/my-account/');
+    await page.context().storageState({path:'notLoggedInState.json'});
+
     await page.locator('#username').fill('practiceuser1');
     await page.locator('#password').fill('PracticePass1!');
     await page.locator('[value="Log in"]').click();

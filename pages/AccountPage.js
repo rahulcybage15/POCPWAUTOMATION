@@ -1,21 +1,23 @@
 // @ts-check
 
-import { expect } from "@playwright/test";
+const {expect} = require('@playwright/test');
 
 export class AccountPage{
 
-    /**
-     * @param {any} page
+ /**
+     * @param {import("playwright-core").Page} page
      */
      
      constructor(page){
-
+        
         this.page = page;
         this.userName = page.locator('#username');
         this.password = page.locator('#password');
-        this.btnLogin = page.locator('[value="Log in"]');
+        this.btnLogin = page.locator('form[class*=login]');
+        this.btnRegister = page.locator('form[class*=register]');
         this.messageOnOrderPage = page.locator('div.woocommerce-info');
         this.tabOrderSection = page.locator('a:has-text("Orders")');
+        
      }
 
      /**

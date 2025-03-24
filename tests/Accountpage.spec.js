@@ -2,11 +2,11 @@
 
 import {test,expect} from '@playwright/test';
 import { AccountPage } from '../pages/AccountPage';
-import { HomePage } from '../pages/HomePage';
 
 test.describe('test case for account page', () => {
     
     let accountpage;
+    test.use({storageState:'loggedInState.json'});
 
     test('access order section', async ({page}) => {
 
@@ -16,4 +16,18 @@ test.describe('test case for account page', () => {
         await accountpage.verifyMessagePresentOnOrderSection();
         
     });
+})
+
+test.describe('with not logged in state', () => {
+
+    let accountpage;
+    test.use({storageState: 'notLoggedInState.json' });
+    test('test without login', async ({ page }) => {
+        
+        accountpage = new AccountPage(page);
+        await page.goto('/my-account');
+        await expect(accountpage.btnLogin).toBeVisible();
+        await expect(accountpage.btnRegister).toBeVisible();
+    })
+    
 })
