@@ -25,7 +25,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['allure-playwright',{outputFolder: 'test-results'}]],
+  reporter: [['allure-playwright',{outputFolder: 'test-results'}],['line']],
   
   //globalSetup: require.resolve('./utils/GlobalSetup.js'),
   globalSetup: require.resolve(path.join(__dirname, 'utils', 'GlobalSetup.js')),
