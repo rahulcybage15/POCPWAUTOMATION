@@ -19,10 +19,4 @@ jobs:
         run: npx playwright test
       - name: debug test result steps
         run: ls -R test-results
-      - name: uploading test results
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: Test Results
-          path: test-results
-
+      
