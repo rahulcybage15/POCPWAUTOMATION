@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+const path = require('path');
 
 /**
  * Read environment variables from file.
@@ -25,7 +26,9 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'allure-playwright',
-  globalSetup: require.resolve('./utils/GlobalSetup.js'),
+  //globalSetup: require.resolve('./utils/GlobalSetup.js'),
+  globalSetup: require.resolve(path.join(__dirname, 'utils', 'GlobalSetup.js')),
+
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
