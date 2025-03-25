@@ -29,7 +29,7 @@ export class BlogPage {
     }
 
     async verifyNumberOfBlogPresent(){
-        //const blogCount = await this.blogLists.count();
+        
         console.log(await this.blogCount());
         expect(await this.blogCount()).toEqual(5);
     }

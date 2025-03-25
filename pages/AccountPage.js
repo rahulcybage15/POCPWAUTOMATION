@@ -32,7 +32,6 @@ export class AccountPage{
 
      async navigateToOrderSection(){
         await this.page.goto('/my-account/orders');
-        //await this.tabOrderSection.click();
      }
 
      async fetchMessageOnOrderPage(){

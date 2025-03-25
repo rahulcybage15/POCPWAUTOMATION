@@ -12,10 +12,6 @@ async function globalSetup(FullConfig) {
 
     const browser = await chromium.launch();
     const page = await browser.newPage();
-    //accountpage = new AccountPage(page);
-    //homepage = new HomePage(page);
-    //await homepage.navigateToHomePage();
-    //await homepage.navigateTotAccountPage();
     await page.goto('https://practice.sdetunicorns.com/my-account/');
     await page.context().storageState({path:'notLoggedInState.json'});
 
