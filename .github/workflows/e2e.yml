@@ -19,5 +19,12 @@ jobs:
         run: npx playwright test
       - name: debug test result steps
         run: ls -R test-results || echo "test-results directory not found"
+      - name: uploading test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test Results
+          path: test-results/*
+
 
       
