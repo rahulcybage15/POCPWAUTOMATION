@@ -17,9 +17,9 @@ jobs:
         run: ls -R
       - name: Running tests
         run: npx playwright test
-      - name: uploading test results
-      - name: debug test results deps
+      - name: debug test result steps
         run: ls -R test-results
+      - name: uploading test results
         if: always()
         uses: actions/upload-artifact@v2
         with:
