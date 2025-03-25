@@ -18,7 +18,6 @@ async function globalSetup(FullConfig) {
     await page.locator('#username').fill('practiceuser1');
     await page.locator('#password').fill('PracticePass1!');
     await page.locator('[value="Log in"]').click();
-    //await accountpage.performLogin('practiceuser1','PracticePass1!');
 
     await page.context().storageState({path:'loggedInState.json'});
     await browser.close();
