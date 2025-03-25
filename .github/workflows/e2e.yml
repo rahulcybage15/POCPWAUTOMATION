@@ -17,3 +17,10 @@ jobs:
         run: ls -R
       - name: Running tests
         run: npx playwright test
+      - name: uploading test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test Results
+          path: test-results
+
