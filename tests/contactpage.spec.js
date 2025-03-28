@@ -1,8 +1,9 @@
 // @ts-check
 import {test,expect} from '@playwright/test';
-import { HomePage } from '../pages/HomePage';
-import { ContactPage } from '../pages/ContactPage';
-import { faker } from '@faker-js/faker';
+import  HomePage  from '../pages/HomePage';
+import PageAssertions from '../assertions/PageAssertions';
+import DataGenerator from '../utils/datagenerator';
+import  ContactPage from '../pages/ContactPage';
 
 test.describe('contact page test cases', () => {
 
@@ -14,18 +15,16 @@ test.describe('contact page test cases', () => {
         homePage = new HomePage(page);
         await homePage.navigateToHomePage();
     })
-    
-
 
     test('using pom fill the form', async ({ page }) => {
         
-        const name =faker.person.firstName();
+        const user = DataGenerator.generateUser();
+        const pageassertions = new PageAssertions(page);
         contactPage = new ContactPage(page);
         await homePage.verifyHomePageTitle();
         await contactPage.navigateToContactPage();
-        await page.waitForLoadState('networkidle');
-        await expect(page).toHaveURL('https://practice.sdetunicorns.com/contact/');
-        await contactPage.fillTheForm(name,faker.internet.email(),faker.phone.number(),faker.commerce.productDescription());
+        await pageassertions.assertURL('https://practice.sdetunicorns.com/contact/','url is matching');
+        await contactPage.fillTheForm(user.name,user.email,user.phone,user.message);
         await contactPage.verifySuccessMessage();
     })
     

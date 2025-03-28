@@ -1,7 +1,6 @@
 // @ts-check
-
-const {expect} = require('@playwright/test');
-export class HomePage {
+import { expect } from '@playwright/test';
+ class HomePage {
 
     /**
      * @param {import("playwright-core").Page} page
@@ -55,4 +54,6 @@ export class HomePage {
         await expect(this.headingText).toBeVisible()
     }
 }
+
+export default HomePage;
 

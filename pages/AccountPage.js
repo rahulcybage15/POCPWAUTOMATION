@@ -1,8 +1,11 @@
 // @ts-check
 
-const {expect} = require('@playwright/test');
+import { expect } from '@playwright/test';
+import InputElements from '../elements/InputElements';
+import BtnElements from '../elements/btnElements';
 
-export class AccountPage{
+
+class AccountPage{
 
  /**
      * @param {import("playwright-core").Page} page
@@ -11,12 +14,12 @@ export class AccountPage{
      constructor(page){
         
         this.page = page;
-        this.userName = page.locator('#username');
-        this.password = page.locator('#password');
-        this.btnLogin = page.locator('form[class*=login]');
-        this.btnRegister = page.locator('form[class*=register]');
-        this.messageOnOrderPage = page.locator('div.woocommerce-info');
-        this.tabOrderSection = page.locator('a:has-text("Orders")');
+        this.userName = new InputElements(page,'#username');
+        this.password = new InputElements(page,'#password');
+        this.btnLogin = new BtnElements(page,'form[class*=login]');
+        this.btnRegister = new BtnElements(page,'form[class*=register]');
+        this.messageOnOrderPage = new InputElements(page,'div.woocommerce-info');
+        this.tabOrderSection = new BtnElements(page,'//a[@href="https://practice.sdetunicorns.com/my-account/orders/"]');
         
      }
 
@@ -25,18 +28,22 @@ export class AccountPage{
      * @param {string} password
      */
      async performLogin(username, password){
-        await this.userName.fill(username);
-        await this.password.fill(password);
-        await this.btnLogin.click();
+
+        await this.userName.typeText(username);
+        await this.password.typeText(password);
+        await this.btnLogin.clickOnBtn();
      }
 
      async navigateToOrderSection(){
-        await this.page.goto('/my-account/orders');
+
+      await this.tabOrderSection.clickOnBtn();
+        //await this.page.goto('/my-account/orders');
      }
 
      async fetchMessageOnOrderPage(){
-        console.log(await this.messageOnOrderPage.innerText());
-        return await this.messageOnOrderPage.innerText();
+
+        console.log(await this.messageOnOrderPage.getTheText());
+        return await this.messageOnOrderPage.getTheText();
      }
 
      async verifyMessagePresentOnOrderSection(){
@@ -45,3 +52,5 @@ export class AccountPage{
         
      }
 }
+
+export default AccountPage;
