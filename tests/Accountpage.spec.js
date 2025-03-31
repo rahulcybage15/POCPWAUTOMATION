@@ -11,9 +11,10 @@ test.describe('with not logged in state', () => {
         accountpage = new AccountPage(page);
         await page.goto('/my-account');
         await accountpage.performLogin('practiceuser1','PracticePass1!');
-        await page.waitForTimeout(5000);
-        //await accountpage.navigateToOrderSection();
-        //await accountpage.fetchMessageOnOrderPage();
+        //await page.waitForTimeout(5000);
+        await accountpage.navigateToOrderSection();
+       // await accountpage.fetchMessageOnOrderPage();
+        await accountpage.verifyMessagePresentOnOrderSection();
     })
     
 })

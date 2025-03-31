@@ -21,7 +21,17 @@ class BtnElements extends BaseElement{
 
     async clickOnBtn(){
        // await this.page.locator(this.selector).click();
-       await this.element.click();
+       await this.element.first().click();
+    }
+
+    /**
+     * @returns{Promise<import ('@playwright/test').Locator>}
+     */
+    async getFirstElement(){
+        //return new BtnElements(this.page,this.element.first());
+        
+        return this.element.first();
+
     }
 
     /**

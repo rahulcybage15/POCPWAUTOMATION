@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
-import { CartPage } from '../pages/CartPage';
-import { HomePage } from '../pages/HomePage';
-const path = require('path');
+import CartPage  from '../pages/CartPage';
+import HomePage from '../pages/HomePage';
+import path from 'path';
 
 test.describe('test cases for upload files', () => {
     

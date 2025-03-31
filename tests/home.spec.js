@@ -1,6 +1,6 @@
 // @ts-check
 import {test,expect} from '@playwright/test';
-import { HomePage } from '../pages/HomePage';
+import  HomePage  from '../pages/HomePage';
 //const path = require('path');
 
 test.describe('home', () => {

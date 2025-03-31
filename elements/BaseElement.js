@@ -1,18 +1,21 @@
 class BaseElement {
 
+    /**
+     * @param {import('@playwright/test').Page} page - The Playwright page instance.
+     * @param {string} selector - The selector for the button element.
+     */
+
+
     constructor(page,selector){
         this.page =page;
-        this.selector = selector;
+        //this.selector = selector;
+        this.element = page.locator(selector);
 
     }
     async click(){
-        await this.page.locator(this.selector).click();
+        await this.element.click();
+        //await this.page.locator(this.selector).click();
     }
-
-    async getText(){
-        await this.page.locator(this.selector).innerText();
-    }
-
 }
 
 export default BaseElement;
