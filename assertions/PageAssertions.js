@@ -16,6 +16,11 @@ class PageAssertions extends BaseAssertions{
 
     }
 
+    async assertTitle(expectedTitle, message='title is not matching'){
+        const currentTitle = await this.page.title();
+        await this.assertEqual(currentTitle,expectedTitle,message);
+    }
+
 }
 
 export default PageAssertions;

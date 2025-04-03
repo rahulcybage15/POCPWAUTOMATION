@@ -20,7 +20,7 @@ class AccountPage{
         //this.password = new InputElements(page,'#password');
         this.btnLogin = new BtnElements(page,'button[name="login"]');
         this.btnRegister = new BtnElements(page,'form[class*=register]');
-        this.messageOnOrderPage = new InputElements(page,'div.woocommerce-info');
+        //this.messageOnOrderPage = new InputElements(page,'div.woocommerce-info');
 
         this.AccountSection = new LablelElements(page,'.woocommerce-MyAccount-content');
         this.tabOrderSection = new BtnElements(page,'//a[@href="https://practice.sdetunicorns.com/my-account/orders/"]');

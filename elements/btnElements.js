@@ -1,4 +1,4 @@
-//@ts-check
+
 
 import BaseElement from './BaseElement';
 
@@ -6,12 +6,12 @@ class BtnElements extends BaseElement{
 
     /**
      * @param {import('@playwright/test').Page} page - The Playwright page instance.
-     * @param {string} selector - The selector for the button element.
+     * @param {string} sectionSelector - selector for the section containing inputs.
      */
 
-    constructor(page,selector){
-        super(page,selector);
-        this.element = page.locator(selector);
+    constructor(page, sectionSelector){
+        super(page,sectionSelector);
+        this.section = page.locator(sectionSelector);
     }
 
     /**
@@ -39,6 +39,15 @@ class BtnElements extends BaseElement{
      */
     async isBtnEnabled(){
         return await this.element.isEnabled();
+    }
+
+    findButtonByLabel({label} = {}){
+
+        if(label){
+            return this.section.locator(`xpath=//button[normalize-space(text())='${label}']`);
+        }else{
+            throw new Error('label is not given');
+        }
     }
 
 }

@@ -1,7 +1,8 @@
-//@ts-check
+
 
 import { el } from '@faker-js/faker';
 import BaseElement from './BaseElement';
+import { error } from 'console';
 
 class InputElements extends BaseElement{
 
@@ -16,34 +17,26 @@ class InputElements extends BaseElement{
         this.section = page.locator(sectionSelector);
     }
 
-    /**
-     * 
-     * @param {object} options
-     * @param {string} [options.name]
-     * @param {string} [options.placeholder]
-     * @param {string} [options.label]
-     * @returns {import('@playwright/test').Locator}
-     */
+    
+    findInputByLabel({label} = {}){
 
-    findInput({name, placeholder,label}){
-        
-        if(name) return this.section.locator(`input[name="${name}"],textarea[name="${name}"]`);
-        if(placeholder) return this.section.locator(`input[placeholder="${placeholder}"], textarea[placeholder="${placeholder}"]`);
-        if(label) return this.section.locator(`label:has-text("${label}") + input, label:has-text("${label}") + textarea`);
-        throw new Error('Must provide name, placeholder, or label to find input');
+        if(label){
+            return this.section.locator(`xpath=//label[span[contains(text(),"${label}")]]/following-sibling::*[self::input or self::textarea]`);
+        }else{
+            throw new Error('label is required');
+        }
 
     }
-
 
     /**
      * 
      * @param {string} text 
-     * @param {object} options
+     * @param {object} label
      */
 
-    async typeText(text,options){
-        const input = this.findInput(options);
-        await input.waitFor({state:'attached'});
+    async typeText(text,label){
+        const input = this.findInputByLabel(label);
+       // await input.waitFor({state:'visible'});
         await input.fill('');
         await input.fill(text);
         //console.log('typing into:',await this.element.evaluate(el => el.outerHTML));
@@ -58,7 +51,6 @@ class InputElements extends BaseElement{
      */
 
     async getTheText(options){
-
 
         const input = this.findInput(options);
         await input.waitFor({state:'visible'});

@@ -4,6 +4,9 @@ import  HomePage  from '../pages/HomePage';
 import PageAssertions from '../assertions/PageAssertions';
 import DataGenerator from '../utils/datagenerator';
 import  ContactPage from '../pages/ContactPage';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 test.describe('contact page test cases', () => {
 
@@ -23,7 +26,7 @@ test.describe('contact page test cases', () => {
         contactPage = new ContactPage(page);
         await homePage.verifyHomePageTitle();
         await contactPage.navigateToContactPage();
-        await pageassertions.assertURL('https://practice.sdetunicorns.com/contact/','url is matching');
+        await pageassertions.assertURL(`${process.env.BASE_URL}/contact/`,'url is not matching');
         await contactPage.fillTheForm(user.name,user.email,user.phone,user.message);
         await contactPage.verifySuccessMessage();
     })
