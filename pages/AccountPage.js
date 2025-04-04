@@ -35,8 +35,8 @@ class AccountPage{
 
         await this.page.waitForTimeout(5000);
         //await this.inputSection().click();
-        await this.inputSection.typeText(username,{name:'username'});
-        await this.inputSection.typeText(password,{name:'password'}); 
+        await this.inputSection.typeText(username,{label:'Username or email'});
+        await this.inputSection.typeText(password,{label:'password'}); 
         //await this.userName.typeText(username);
         //await this.password.typeText(password);
         const btn = await this.btnLogin.clickOnBtn();

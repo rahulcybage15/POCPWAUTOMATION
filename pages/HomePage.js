@@ -1,12 +1,15 @@
 // @ts-check
 import { expect } from '@playwright/test';
- class HomePage {
+import BasePage from './BasePage';
+ class HomePage extends BasePage {
 
     /**
      * @param {import("playwright-core").Page} page
      */
     constructor(page){
 
+
+        super();
         this.page = page;
         this.getStartedBtn = page.locator('#get-started');
         this.headingText = page.locator('text=Think different. Make different.');
@@ -19,11 +22,14 @@ import { expect } from '@playwright/test';
     }
 
     async navigateToHomePage(){
-        await this.page.goto('https://practice.sdetunicorns.com');
+        //console.log(`${process.env.BASE_URL});
+        await this.navigate(`${process.env.BASE_URL}`);
+    
     }
 
     async navigateTotAccountPage(){
-        await this.page.goto('/my-account');
+        await this.navigate(`${process.env.BASE_URL}/my-account`);
+        //await this.page.goto('');
     }
 
     getNavLinksText(){
@@ -45,7 +51,8 @@ import { expect } from '@playwright/test';
     }
 
     async fetchHeadingName(){
-         return await this.headingText.innerText()
+         await this.getText(this.headingText);
+        // return await this.headingText.innerText()
     }
 
     async verifyHeadingTextIsVisible(){

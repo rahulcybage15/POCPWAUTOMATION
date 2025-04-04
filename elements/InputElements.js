@@ -21,7 +21,9 @@ class InputElements extends BaseElement{
     findInputByLabel({label} = {}){
 
         if(label){
-            return this.section.locator(`xpath=//label[span[contains(text(),"${label}")]]/following-sibling::*[self::input or self::textarea]`);
+            return this.section.locator(`xpath=(//label[span[contains(text(),"${label}")]]/following-sibling::*[self::input or self::textarea])
+             | (//label[contains(text(),"${label}")]/following-sibling::*[self::input or self::textarea])
+             | (//label[@for="${label}"]/following-sibling::*/input)`);
         }else{
             throw new Error('label is required');
         }
