@@ -1,32 +1,41 @@
-// @ts-check
-import {test,expect} from '@playwright/test';
+// @ts-nocheck
+// Import the custom test and expect
+import { test, expect } from '../core/BaseTest';
+
+/**
+ * @typedef {import('../core/BaseTest').CustomFixtures} CustomFixtures
+ */
+
+/** @type {import('@playwright/test').Test<CustomFixtures>} */
+const typedTest = test;
+
 import  HomePage  from '../pages/HomePage';
 import PageAssertions from '../assertions/PageAssertions';
 import DataGenerator from '../utils/datagenerator';
 import  ContactPage from '../pages/ContactPage';
 import dotenv from 'dotenv';
+import VerificationUtils from '../utils/VerificationUtils';
 
 dotenv.config();
 
-test.describe('contact page test cases', () => {
+typedTest.describe('contact page test cases', () => {
 
-    let homePage ;
-    let contactPage;
+   // let homePage ;
+   // let contactPage;
 
-    test.beforeEach(async ({ page }) => {
+   typedTest.beforeEach(async ({ homePage }) => {
     
-        homePage = new HomePage(page);
+        //homePage = new HomePage(page);
         await homePage.navigateToHomePage();
     })
 
-    test('using pom fill the form', async ({ page }) => {
+    typedTest('using pom fill the form', async ({ homePage, contactPage }) => {
         
         const user = DataGenerator.generateUser();
-        const pageassertions = new PageAssertions(page);
-        contactPage = new ContactPage(page);
+        //contactPage = new ContactPage(page);
         await homePage.verifyHomePageTitle();
         await contactPage.navigateToContactPage();
-        await pageassertions.assertURL(`${process.env.BASE_URL}/contact/`,'url is not matching');
+        await contactPage.verifyContactPageURL();
         await contactPage.fillTheForm(user.name,user.email,user.phone,user.message);
         await contactPage.verifySuccessMessage();
     })

@@ -15,7 +15,7 @@ test.describe('home', () => {
         
         homePage = new HomePage(page);
         await homePage.navigateToHomePage();
-        homePage.verifyHomePageTitle();
+        await homePage.verifyHomePageTitle();
         await homePage.clickOnGetStartedBtn();
         await homePage.verifyGetStartedURL();
         await homePage.verifyHeadingTextIsVisible();

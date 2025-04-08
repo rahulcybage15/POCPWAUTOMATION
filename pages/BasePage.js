@@ -1,13 +1,35 @@
-
+import { ur } from "@faker-js/faker";
+import { expect } from "@playwright/test";
 
 class BasePage {
 
     constructor(page) {
         this.page = page;
+        this.locatorMap = {};
+        
+    }
+
+    getLocator(key){
+
+        const locator  = this.locatorMap[key];
+
+        if(!locator){
+            throw new Error(`locator for "${key}" not found in map.`);
+        }
+        if(typeof locator  === 'string'){
+            return this.page.locator(locator);
+
+        }
+        if(locator.role){
+            return this.page.getByRole(locator.role, locator.options || {});
+        }
+        throw new Error (`not supported locator "${key}"`);
+
     }
 
     // Navigate to a URL
     async navigate(url) {
+        console.log(`[NAVIGATE] --> ${url}`);
         await this.page.goto(url);
     }
 
@@ -22,35 +44,58 @@ class BasePage {
     }
 
     // Click an element
-    async clickElement(selector) {
-        await this.page.locator(selector).click();
+    async clickElement(selectorOrLocator) {
+        const element = typeof selectorOrLocator === 'string'
+        ? this.page.locator(selectorOrLocator)
+        : selectorOrLocator;
+        await element.click();
     }
 
     // Type text into an input field
-    async typeText(selector, text) {
-        const element = this.page.locator(selector);
+    async typeText(selectorOrLocator, text) {
+        const element = typeof selectorOrLocator === 'string'
+        ? this.page.locator(selectorOrLocator)
+        : selectorOrLocator;
+
         await element.fill('');
         await element.fill(text);
     }
 
     // Get text content of an element
-    async getText(selector) {
-        return await this.page.locator(selector).innerText();
+    async getText(selectorOrLocator) {
+
+        const element = typeof selectorOrLocator === 'string'
+        ? this.page.locator(selectorOrLocator) : selectorOrLocator;
+
+        await element.waitFor({ state: 'visible' });
+        return await element.innerText();
     }
 
     // Select from a dropdown
-    async selectDropdown(selector, value) {
-        await this.page.locator(selector).selectOption(value);
+    async selectDropdown(selectorOrLocator, value) {
+
+        const element = typeof selectorOrLocator === 'string'
+            ? this.page.locator(selectorOrLocator)
+            : selectorOrLocator;
+
+        await element.selectOption(value);
     }
 
     // Check if an element is visible
-    async isElementVisible(selector) {
-        return await this.page.locator(selector).isVisible();
+    async isElementVisible(selectorOrLocator) {
+        const element = typeof selectorOrLocator === 'string'
+            ? this.page.locator(selectorOrLocator)
+            : selectorOrLocator;
+            return await element.isVisible();
     }
 
     // Wait for an element to be visible
-    async waitForElement(selector, timeout = 5000) {
-        await this.page.locator(selector).waitFor({ state: 'visible', timeout });
+    async waitForElement(selectorOrLocator, timeout = 5000) {
+        const element = typeof selectorOrLocator === 'string'
+            ? this.page.locator(selectorOrLocator)
+            : selectorOrLocator;
+
+            await element.waitFor({ state: 'visible', timeout });
     }
 
     // Take a screenshot
@@ -70,13 +115,21 @@ class BasePage {
     }
 
     // Get attribute value
-    async getAttribute(selector, attribute) {
-        return await this.page.locator(selector).getAttribute(attribute);
+    async getAttribute(selectorOrLocator, attribute) {
+
+        const element = typeof selectorOrLocator === 'string'
+            ? this.page.locator(selectorOrLocator)
+            : selectorOrLocator;
+            return await element.getAttribute(attribute);
+
     }
 
     // Scroll to element
-    async scrollToElement(selector) {
-        await this.page.locator(selector).scrollIntoViewIfNeeded();
+    async scrollToElement(selectorOrLocator) {
+        const element = typeof selectorOrLocator === 'string'
+            ? this.page.locator(selectorOrLocator)
+            : selectorOrLocator;
+            await element.scrollIntoViewIfNeeded();
     }
 
     // Wait for a response matching a specific URL or regex
