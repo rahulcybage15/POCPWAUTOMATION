@@ -37,6 +37,7 @@ import VerificationUtils from "../utils/VerificationUtils";
      */
     async fillTheForm(name,email,phone,msg){
 
+        
         await this.typeText(this.getLocator('nameInput'),name);
         await this.typeText(this.getLocator('emailInput'),email);
         await this.typeText(this.getLocator('phoneInput'),phone);

@@ -1,31 +1,28 @@
 // @ts-check
 
 import { expect } from '@playwright/test';
-import InputElements from '../elements/InputElements';
-import BtnElements from '../elements/btnElements';
-import LablelElements from '../elements/labelElements';
+import AccountPageLocators from './Locators/AccountPageLocators';
+import BasePage from './BasePage';
+import VerificationUtils from '../utils/VerificationUtils';
 
 
-class AccountPage{
+class AccountPage extends BasePage{
 
  /**
      * @param {import("playwright-core").Page} page
      */
      
      constructor(page){
-        
-        this.page = page;
-        this.inputSection = new InputElements(page,'.woocommerce-form-login');
-        //this.userName = new InputElements(page,'#username');
-        //this.password = new InputElements(page,'#password');
-        this.btnLogin = new BtnElements(page,'button[name="login"]');
-        this.btnRegister = new BtnElements(page,'form[class*=register]');
-        //this.messageOnOrderPage = new InputElements(page,'div.woocommerce-info');
-
-        this.AccountSection = new LablelElements(page,'.woocommerce-MyAccount-content');
-        this.tabOrderSection = new BtnElements(page,'//a[@href="https://practice.sdetunicorns.com/my-account/orders/"]');
+      super(page);
+        this.locatorMap = AccountPageLocators;
         
      }
+
+     async navigateToAccountPage(){
+
+      await this.navigate(`${process.env.BASE_URL}/my-account`);
+      
+  }
 
      /**
      * @param {string} username
@@ -34,30 +31,48 @@ class AccountPage{
      async performLogin(username, password){
 
         await this.page.waitForTimeout(5000);
-        //await this.inputSection().click();
-        await this.inputSection.typeText(username,{label:'Username or email'});
-        await this.inputSection.typeText(password,{label:'password'}); 
-        //await this.userName.typeText(username);
-        //await this.password.typeText(password);
-        const btn = await this.btnLogin.clickOnBtn();
-        //await btn.click();
+
+        await this.typeText(this.getLocator('userNameInput'),username);
+        await this.typeText(this.getLocator('passwordInput'),password);
+        await this.getLocator('btnLogin').click();
      }
 
      async navigateToOrderSection(){
 
-      await this.tabOrderSection.clickOnBtn();
+     await this.getLocator('tabOrder').click();
+
      }
-    
-     //async fetchMessageOnOrderPage(){
-         //return await this.messageOnOrderPage.getTheText();
-   //  }
 
      async verifyMessagePresentOnOrderSection(){
 
-      const message =await this.AccountSection.findDivText({selector:".woocommerce-info"});
-        //const message = await this.messageOnOrderPage.getTheText();
-        expect(message).toContain('No order has been made yet.');
+      await VerificationUtils.elementIsVisible(this.getLocator('messageOrderPage'));
+      await VerificationUtils.elementContainsText(this.getLocator('messageOrderPage'),'No order has been made yet.');
         
+     }
+
+     async navigateToAccountDetailsSection(){
+      await this.getLocator('tabAccountDetails').click();
+     }
+
+     /**
+      * 
+      * @param {string} fistname 
+      * @param {string} lastname 
+      * @param {string} displayname 
+      */
+     async modifyDetailsOnAccountSection(fistname, lastname, displayname){
+
+      await this.typeText(this.getLocator('firstNameAccountDetails'),fistname);
+      await this.typeText(this.getLocator('lastNameAccountDetails'),lastname);
+      await this.typeText(this.getLocator('displayNameAccountDetails'),displayname);
+      await this.getLocator('btnSaveChanges').click();
+     }
+
+     async verifyAccountDetailsGotSaved(){
+
+      await expect(this.getLocator('messageAccountDetailsSaved')).toBeVisible();
+      const message = await this.getLocator('messageAccountDetailsSaved').innerText();
+      expect(message).toContain('Account details changed successfully.');
      }
 }
 

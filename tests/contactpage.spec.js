@@ -7,7 +7,7 @@ import { test, expect } from '../core/BaseTest';
  */
 
 /** @type {import('@playwright/test').Test<CustomFixtures>} */
-const typedTest = test;
+//const typedTest = test;
 
 import  HomePage  from '../pages/HomePage';
 import PageAssertions from '../assertions/PageAssertions';
@@ -18,18 +18,18 @@ import VerificationUtils from '../utils/VerificationUtils';
 
 dotenv.config();
 
-typedTest.describe('contact page test cases', () => {
+test.describe('contact page test cases', () => {
 
    // let homePage ;
    // let contactPage;
 
-   typedTest.beforeEach(async ({ homePage }) => {
+   test.beforeEach(async ({ homePage }) => {
     
         //homePage = new HomePage(page);
         await homePage.navigateToHomePage();
     })
 
-    typedTest('using pom fill the form', async ({ homePage, contactPage }) => {
+    test('using pom fill the form', async ({ homePage, contactPage }) => {
         
         const user = DataGenerator.generateUser();
         //contactPage = new ContactPage(page);
