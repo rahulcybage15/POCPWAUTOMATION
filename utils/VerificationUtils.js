@@ -4,8 +4,8 @@ class VerificationUtils{
 
     async elementContainsText(targetElement, expectedText){
 
-        console.log(`asserts that elment contains text '${expectedText}'`);
         await expect(targetElement).toContainText(expectedText);
+        console.log(`asserts that elment contains text '${expectedText}'`);
 
     }
 

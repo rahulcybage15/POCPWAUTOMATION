@@ -70,9 +70,41 @@ class AccountPage extends BasePage{
 
      async verifyAccountDetailsGotSaved(){
 
-      await expect(this.getLocator('messageAccountDetailsSaved')).toBeVisible();
-      const message = await this.getLocator('messageAccountDetailsSaved').innerText();
-      expect(message).toContain('Account details changed successfully.');
+      await VerificationUtils.elementIsVisible(this.getLocator('messageAccountDetailsSaved'));
+     await VerificationUtils.elementContainsText(this.getLocator('messageAccountDetailsSaved'),'Account details changed successfully.');
+     }
+
+     /**
+      * 
+      * @param {string} username 
+      * @param {string} email 
+      * @param {string} password 
+      */
+     async registerNewUser(username,email,password){
+
+      await this.typeText(this.getLocator('registerUserName'),username);
+      await this.typeText(this.getLocator('registerEmail'),email);
+      await this.typeText(this.getLocator('registerPassword'),password);
+      await this.waitForElement(this.getLocator('registerButton'),10000);
+      //await this.page.waitForTimeout(5000);
+      await this.getLocator('registerButton').click({force:true});
+
+     }
+    
+
+     /**
+      * 
+      * @param {string} username 
+      */
+     async verifyRegistrationIsSuccessufl(username) {
+
+     // const notice = this.getLocator('dashboardUserName');
+      //await notice.waitFor({state: 'visible',timeout: 10000});
+     // await expect(notice).toBeVisible();
+
+      await VerificationUtils.elementIsVisible(this.getLocator('dashboardUserName'));
+      await VerificationUtils.elementContainsText(this.getLocator('dashboardUserName'),username);
+      
      }
 }
 

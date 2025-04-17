@@ -11,6 +11,11 @@ const AccountPageLocators = {
     displayNameAccountDetails: "#account_display_name",
     btnSaveChanges: "button[name='save_account_details']",
     messageAccountDetailsSaved: ".woocommerce-message",
+    registerUserName: "#reg_username",
+    registerEmail: "#reg_email",
+    registerPassword: "#reg_password",
+    registerButton: "button:has-text('Register')",
+    dashboardUserName: ".woocommerce-MyAccount-content",
 
 }
 export default AccountPageLocators;

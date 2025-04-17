@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import { register } from 'module';
 
 class DataGenerator{
 
@@ -12,7 +13,10 @@ class DataGenerator{
         displayname: faker.person.middleName(),
         email: faker.internet.email(),
         phone: faker.phone.number(),
-        message: faker.commerce.productDescription()
+        message: faker.commerce.productDescription(),
+        registerEmail: faker.internet.email(),
+        regiserUserName: faker.person.fullName(),
+        password: faker.string.alphanumeric(10),
         }
     }
 

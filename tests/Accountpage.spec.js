@@ -18,21 +18,16 @@ import VerificationUtils from '../utils/VerificationUtils';
 dotenv.config();
 
 
-test.describe('with not logged in state', () => {
+test.describe('Account pages test cases', () => {
 
     test.beforeEach(async ({ homePage }) => {
-    
-        //homePage = new HomePage(page);
+
         await homePage.navigateToHomePage();
         
     })
 
-
-    //let accountpage;
     test('login test', async ({ accountPage }) => {
         
-        //accountpage = new AccountPage(page);
-
         await accountPage.navigateToAccountPage();
         await accountPage.performLogin(String(process.env.USER),String(process.env.PASSWORD));
         await accountPage.navigateToOrderSection();
@@ -49,6 +44,16 @@ test.describe('with not logged in state', () => {
         await accountPage.verifyAccountDetailsGotSaved();
         
     })
+
+    test('Registration Process', async ({ accountPage }) => {
+
+        const newUser = DataGenerator.generateUser();
+        await accountPage.navigateToAccountPage();
+        await accountPage.registerNewUser(newUser.regiserUserName,newUser.registerEmail,newUser.password);
+        await accountPage.verifyRegistrationIsSuccessufl(newUser.regiserUserName);
+        
+    })
+    
     
     
 })
