@@ -98,10 +98,6 @@ class AccountPage extends BasePage{
       */
      async verifyRegistrationIsSuccessufl(username) {
 
-     // const notice = this.getLocator('dashboardUserName');
-      //await notice.waitFor({state: 'visible',timeout: 10000});
-     // await expect(notice).toBeVisible();
-
       await VerificationUtils.elementIsVisible(this.getLocator('dashboardUserName'));
       await VerificationUtils.elementContainsText(this.getLocator('dashboardUserName'),username);
       
