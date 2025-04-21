@@ -11,7 +11,6 @@ import { test, expect } from '../core/BaseTest';
 //import {test,expect} from '@playwright/test';
 //import  AccountPage from '../pages/AccountPage';
 import dotenv from 'dotenv';
-import PageAssertions from '../assertions/PageAssertions';
 import DataGenerator from '../utils/datagenerator';
 import VerificationUtils from '../utils/VerificationUtils';
 

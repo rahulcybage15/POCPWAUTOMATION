@@ -10,7 +10,6 @@ import { test, expect } from '../core/BaseTest';
 //const typedTest = test;
 
 import  HomePage  from '../pages/HomePage';
-import PageAssertions from '../assertions/PageAssertions';
 import DataGenerator from '../utils/datagenerator';
 import  ContactPage from '../pages/ContactPage';
 import dotenv from 'dotenv';
