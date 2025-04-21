@@ -1,9 +1,7 @@
 // @ts-check
+import { expect } from '@playwright/test';
 
-import exp from 'constants';
-
-const {expect} = require('@playwright/test');
-export class BlogPage {
+class BlogPage {
 
     /**
      * @param {import("playwright-core").Page} page
@@ -44,3 +42,5 @@ export class BlogPage {
         }
     
 }
+
+export default BlogPage;

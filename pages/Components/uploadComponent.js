@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
 
-export class UploadComponent{
+class UploadComponent{
 
     /**
      * @param {any} page
@@ -20,3 +20,5 @@ export class UploadComponent{
 
 
 }
+
+export default UploadComponent;

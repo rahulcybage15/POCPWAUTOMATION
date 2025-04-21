@@ -1,24 +1,31 @@
 // @ts-check
 import { expect } from "@playwright/test";
+// @ts-ignore
 
-export class ContactPage {
 
+import InputElements from '../elements/InputElements';
+import BtnElements from "../elements/btnElements";
+import BasePage from "./BasePage";
+import ContactPageLocators from "./Locators/ContactPageLocators";
+import VerificationUtils from "../utils/VerificationUtils";
+
+ class ContactPage extends BasePage {
+
+   
     /**
      * @param {import("playwright-core").Page} page
      */
     constructor(page){
 
-        this.page =page;
-        this.nameInput =page.locator('.contact-name input');
-        this.emailInput = page.locator('.contact-email input');
-        this.phoneInput = page.locator('.contact-phone input');
-        this.messageInput = page.locator('.contact-message textarea');
-        this.submitBtn = page.getByRole('button',{name: 'Submit'});
-        this.messageSuccess = page.getByRole('alert');
+        super(page);
+        this.locatorMap = ContactPageLocators;
+        
     }
 
     async navigateToContactPage(){
-        await this.page.goto('/contact');
+
+        await this.navigate(`${process.env.BASE_URL}/contact`);
+        
     }
 
 
@@ -30,16 +37,28 @@ export class ContactPage {
      */
     async fillTheForm(name,email,phone,msg){
 
-        await this.nameInput.fill(name);
-        await this.emailInput.fill(email);
-        await this.phoneInput.fill(phone);
-        await this.messageInput.fill(msg);
-        await this.submitBtn.click();
+        
+        await this.typeText(this.getLocator('nameInput'),name);
+        await this.typeText(this.getLocator('emailInput'),email);
+        await this.typeText(this.getLocator('phoneInput'),phone);
+        await this.typeText(this.getLocator('messageInput'),msg);
+        await this.getLocator('btnSubmit').click();
     }
 
     async verifySuccessMessage(){
-        const successMessgae = await this.messageSuccess.innerText();
-        console.log(successMessgae);
-       await expect(this.messageSuccess).toBeVisible();
+
+        const sucessLocator= await this.getLocator('messageSuccess');
+        await expect(sucessLocator).toBeVisible();
+        //const messageText = await sucessLocator.innerText();
+        await expect(sucessLocator).toContainText(`${process.env.CONTACT_PAGE_SUCCESS_TITLE}`);
     }
+
+    async verifyContactPageURL(){
+        VerificationUtils.pageHaveURL(this.page,`${process.env.BASE_URL}/contact/`);
+
+    }
+
+
 }
+
+export default ContactPage;

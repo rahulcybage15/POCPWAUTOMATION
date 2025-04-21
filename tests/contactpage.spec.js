@@ -1,31 +1,42 @@
-// @ts-check
-import {test,expect} from '@playwright/test';
-import { HomePage } from '../pages/HomePage';
-import { ContactPage } from '../pages/ContactPage';
-import { faker } from '@faker-js/faker';
+// @ts-nocheck
+// Import the custom test and expect
+import { test, expect } from '../core/BaseTest';
+
+/**
+ * @typedef {import('../core/BaseTest').CustomFixtures} CustomFixtures
+ */
+
+/** @type {import('@playwright/test').Test<CustomFixtures>} */
+//const typedTest = test;
+
+import  HomePage  from '../pages/HomePage';
+import PageAssertions from '../assertions/PageAssertions';
+import DataGenerator from '../utils/datagenerator';
+import  ContactPage from '../pages/ContactPage';
+import dotenv from 'dotenv';
+import VerificationUtils from '../utils/VerificationUtils';
+
+dotenv.config();
 
 test.describe('contact page test cases', () => {
 
-    let homePage ;
-    let contactPage;
+   // let homePage ;
+   // let contactPage;
 
-    test.beforeEach(async ({ page }) => {
+   test.beforeEach(async ({ homePage }) => {
     
-        homePage = new HomePage(page);
+        //homePage = new HomePage(page);
         await homePage.navigateToHomePage();
     })
-    
 
-
-    test('using pom fill the form', async ({ page }) => {
+    test('using pom fill the form', async ({ homePage, contactPage }) => {
         
-        const name =faker.person.firstName();
-        contactPage = new ContactPage(page);
+        const user = DataGenerator.generateUser();
+        //contactPage = new ContactPage(page);
         await homePage.verifyHomePageTitle();
         await contactPage.navigateToContactPage();
-        await page.waitForLoadState('networkidle');
-        await expect(page).toHaveURL('https://practice.sdetunicorns.com/contact/');
-        await contactPage.fillTheForm(name,faker.internet.email(),faker.phone.number(),faker.commerce.productDescription());
+        await contactPage.verifyContactPageURL();
+        await contactPage.fillTheForm(user.name,user.email,user.phone,user.message);
         await contactPage.verifySuccessMessage();
     })
     

@@ -1,47 +1,107 @@
 // @ts-check
 
-const {expect} = require('@playwright/test');
+import { expect } from '@playwright/test';
+import AccountPageLocators from './Locators/AccountPageLocators';
+import BasePage from './BasePage';
+import VerificationUtils from '../utils/VerificationUtils';
 
-export class AccountPage{
+
+class AccountPage extends BasePage{
 
  /**
      * @param {import("playwright-core").Page} page
      */
      
      constructor(page){
-        
-        this.page = page;
-        this.userName = page.locator('#username');
-        this.password = page.locator('#password');
-        this.btnLogin = page.locator('form[class*=login]');
-        this.btnRegister = page.locator('form[class*=register]');
-        this.messageOnOrderPage = page.locator('div.woocommerce-info');
-        this.tabOrderSection = page.locator('a:has-text("Orders")');
+      super(page);
+        this.locatorMap = AccountPageLocators;
         
      }
+
+     async navigateToAccountPage(){
+
+      await this.navigate(`${process.env.BASE_URL}/my-account`);
+      
+  }
 
      /**
      * @param {string} username
      * @param {string} password
      */
      async performLogin(username, password){
-        await this.userName.fill(username);
-        await this.password.fill(password);
-        await this.btnLogin.click();
+
+        await this.page.waitForTimeout(5000);
+
+        await this.typeText(this.getLocator('userNameInput'),username);
+        await this.typeText(this.getLocator('passwordInput'),password);
+        await this.getLocator('btnLogin').click();
      }
 
      async navigateToOrderSection(){
-        await this.page.goto('/my-account/orders');
-     }
 
-     async fetchMessageOnOrderPage(){
-        console.log(await this.messageOnOrderPage.innerText());
-        return await this.messageOnOrderPage.innerText();
+     await this.getLocator('tabOrder').click();
+
      }
 
      async verifyMessagePresentOnOrderSection(){
 
-        expect(await this.fetchMessageOnOrderPage()).toContain('No order has been made yet.');
+      await VerificationUtils.elementIsVisible(this.getLocator('messageOrderPage'));
+      await VerificationUtils.elementContainsText(this.getLocator('messageOrderPage'),'No order has been made yet.');
         
      }
+
+     async navigateToAccountDetailsSection(){
+      await this.getLocator('tabAccountDetails').click();
+     }
+
+     /**
+      * 
+      * @param {string} fistname 
+      * @param {string} lastname 
+      * @param {string} displayname 
+      */
+     async modifyDetailsOnAccountSection(fistname, lastname, displayname){
+
+      await this.typeText(this.getLocator('firstNameAccountDetails'),fistname);
+      await this.typeText(this.getLocator('lastNameAccountDetails'),lastname);
+      await this.typeText(this.getLocator('displayNameAccountDetails'),displayname);
+      await this.getLocator('btnSaveChanges').click();
+     }
+
+     async verifyAccountDetailsGotSaved(){
+
+      await VerificationUtils.elementIsVisible(this.getLocator('messageAccountDetailsSaved'));
+     await VerificationUtils.elementContainsText(this.getLocator('messageAccountDetailsSaved'),'Account details changed successfully.');
+     }
+
+     /**
+      * 
+      * @param {string} username 
+      * @param {string} email 
+      * @param {string} password 
+      */
+     async registerNewUser(username,email,password){
+
+      await this.typeText(this.getLocator('registerUserName'),username);
+      await this.typeText(this.getLocator('registerEmail'),email);
+      await this.typeText(this.getLocator('registerPassword'),password);
+      await this.waitForElement(this.getLocator('registerButton'),10000);
+      //await this.page.waitForTimeout(5000);
+      await this.getLocator('registerButton').click({force:true});
+
+     }
+    
+
+     /**
+      * 
+      * @param {string} username 
+      */
+     async verifyRegistrationIsSuccessufl(username) {
+
+      await VerificationUtils.elementIsVisible(this.getLocator('dashboardUserName'));
+      await VerificationUtils.elementContainsText(this.getLocator('dashboardUserName'),username);
+      
+     }
 }
+
+export default AccountPage;

@@ -1,12 +1,11 @@
 // @ts-check
 import { expect } from "@playwright/test";
-import { UploadComponent } from "./Components/uploadComponent";
-const path = require('path');
-
-export class CartPage {
-
-
-    
+import  UploadComponent  from "./Components/uploadComponent";
+//const path = require('path');
+import path from 'path';
+import exp from "constants";
+class CartPage {
+  
     /**
      * @param {any} page
      */
@@ -56,3 +55,5 @@ export class CartPage {
 
 
 }
+
+export default CartPage;

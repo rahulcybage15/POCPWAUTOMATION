@@ -1,7 +1,7 @@
 // @ts-check
 import {test,expect} from '@playwright/test';
-import { HomePage } from '../pages/HomePage';
-import { BlogPage } from '../pages/BlogPage';
+import  HomePage  from '../pages/HomePage';
+import  BlogPage from '../pages/BlogPage';
 
 test.describe('test cases for blog page', () => {
 

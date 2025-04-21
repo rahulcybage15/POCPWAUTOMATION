@@ -1,58 +1,59 @@
 // @ts-check
+import { expect } from '@playwright/test';
+import BasePage from './BasePage';
+import verificationUtils from '../utils/VerificationUtils';
+import HomePageLocators from './Locators/HomePageLocators';
 
-const {expect} = require('@playwright/test');
-export class HomePage {
+ class HomePage extends BasePage {
 
     /**
      * @param {import("playwright-core").Page} page
      */
     constructor(page){
 
-        this.page = page;
-        this.getStartedBtn = page.locator('#get-started');
-        this.headingText = page.locator('text=Think different. Make different.');
-        this.coursesBtn = page.locator('a.zak-button');
-        this.contactLink = page.locator('#menu-item-493');
-        this.blogLink = page.locator('#menu-item-490');
-        this.homeLink = page.locator('#menu-item-489 a');
-        this.navLinks = page.locator('#zak-primary-nav ul li');
-        this.headingText = page.locator('text=Think');
+
+        super(page);
+        //this.page = page;
+        this.locatorMap = HomePageLocators;
     }
 
     async navigateToHomePage(){
-        await this.page.goto('https://practice.sdetunicorns.com');
+        await this.navigate(`${process.env.BASE_URL}`);
+    
     }
 
     async navigateTotAccountPage(){
-        await this.page.goto('/my-account');
+        await this.navigate(`${process.env.BASE_URL}/my-account`);
     }
 
     getNavLinksText(){
-        return this.navLinks.allInnerTexts();
+        return this.getLocator('navLinks').allInnerTexts();
     }
 
    async verifyHomePageTitle(){
-        await expect(this.page).toHaveTitle('Practice E-Commerce Site – SDET Unicorns');
+
+    await verificationUtils.pageHaveTitle(this.page,`${process.env.HOME_TITLE}`);
     }
 
     async clickOnGetStartedBtn(){
-
-        await this.getStartedBtn.click();
+        await this.getLocator('getStartedBtn').click();
     }
 
     async verifyGetStartedURL(){
-    
-       await expect(this.page).toHaveURL(/.*#get-started/);
+
+        await verificationUtils.pageHaveURL(this.page,/.*#get-started/);
     }
 
     async fetchHeadingName(){
-         return await this.headingText.innerText()
+        return await this.getText(this.getLocator('headingText'));
+    
     }
 
     async verifyHeadingTextIsVisible(){
-        const te = await this.fetchHeadingName();
-        console.log(te);
-        await expect(this.headingText).toBeVisible()
+
+        await verificationUtils.elementIsVisible(this.getLocator('headingText'));
     }
 }
+
+export default HomePage;
 
