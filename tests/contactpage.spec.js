@@ -28,7 +28,7 @@ test.describe('contact page test cases', () => {
         await homePage.navigateToHomePage();
     })
 
-    test('using pom fill the form', async ({ homePage, contactPage }) => {
+    test('using pom fill the form @smoke', async ({ homePage, contactPage }) => {
         
         const user = DataGenerator.generateUser();
         //contactPage = new ContactPage(page);

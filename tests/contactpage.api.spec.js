@@ -10,23 +10,19 @@ import { test, expect } from '../core/BaseTest';
 //const typedTest = test;
 
 import  HomePage  from '../pages/HomePage';
-//import PageAssertions from '../assertions/PageAssertions';
 import DataGenerator from '../utils/datagenerator';
 import  ContactPage from '../pages/ContactPage';
 import dotenv from 'dotenv';
 import VerificationUtils from '../utils/VerificationUtils';
-//import { read } from 'fs';
 import apiController from '../core/api-controller';
 
-//let apiContext;
 let randomPerson;
 
 dotenv.config();
 
 test.describe('contact page test cases', () => {
 
-   // let homePage ;
-   // let contactPage;
+   
    test.beforeAll(async ({ playwright }) => 
     {
        // apiContext = await playwright.request.newContext({
@@ -37,9 +33,7 @@ test.describe('contact page test cases', () => {
     
    })
    test.afterAll(async ({ playwright }) => {
-
-
-    await apiController.closeApi();
+     await apiController.closeApi();
    })
    
 
