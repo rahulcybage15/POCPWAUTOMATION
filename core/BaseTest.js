@@ -3,7 +3,6 @@ import { test as base, expect } from '@playwright/test';
 import HomePage from '../pages/HomePage';
 import ContactPage from '../pages/ContactPage';
 import AccountPage from '../pages/AccountPage';
-import BasePage from '../pages/BasePage';
 
 export const test = base.extend({
   homePage: async ({ page }, use) => {

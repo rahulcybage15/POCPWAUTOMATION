@@ -16,10 +16,7 @@ import VerificationUtils from '../utils/VerificationUtils';
 
 dotenv.config();
 
-// test.describe.configure(({mode: 'parallel'}),'Account pages test cases',()=>{
-
-// })
-test.describe('Account pages test cases', () => {
+test.describe.configure(({mode: 'parallel'}),'Account pages test cases',()=>{
 
     test.beforeEach(async ({ homePage }) => {
 
@@ -35,7 +32,7 @@ test.describe('Account pages test cases', () => {
         await accountPage.verifyMessagePresentOnOrderSection();
     })
 
-    test('modify the account details and save @smoke ', async ({ accountPage }) => {
+    test('modify the account details and save ', async ({ accountPage }) => {
 
         const user = DataGenerator.generateUser();
         await accountPage.navigateToAccountPage();
@@ -58,3 +55,7 @@ test.describe('Account pages test cases', () => {
     
     
 })
+
+
+
+    

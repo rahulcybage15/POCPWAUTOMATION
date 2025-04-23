@@ -2,9 +2,6 @@
 import { expect } from "@playwright/test";
 // @ts-ignore
 
-
-import InputElements from '../elements/InputElements';
-import BtnElements from "../elements/btnElements";
 import BasePage from "./BasePage";
 import ContactPageLocators from "./Locators/ContactPageLocators";
 import VerificationUtils from "../utils/VerificationUtils";
